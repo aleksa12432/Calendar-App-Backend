@@ -1,16 +1,16 @@
-"use strict"
+"use strict";
 
 const express = require("express");
 const dbconfig = require("./dbconfig.json");
 
 const app = express();
-
+app.use(express.json());
 const port = process.env.port || 3000;
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
-})
+const v1Route = require("./v1");
 
-app.listen(3000, "localhost", () => {
-    console.log("!!!");
-})
+app.use("/api/v1", v1Route);
+
+app.listen(port, "localhost", () => {
+	console.log(`Server listening on port ${port}...`);
+});
